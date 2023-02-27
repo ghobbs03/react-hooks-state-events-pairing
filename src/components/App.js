@@ -1,18 +1,35 @@
 import video from "../data/video.js";
+import Details from "./Details.js";
+import CommentList from "./CommentList.js";
+import { useState } from "react";
 
 function App() {
   console.log("Here's your data:", video);
 
+  const [likes, setLikes] = useState(video.upvotes);
+  const [dislikes, setDislikes] = useState(video.downvotes);
+  const [comments, setComments] = useState(video.comments); 
+
+
+  function handleLike() {
+    setLikes(likes + 1);
+  }
+
+  function handleDislike() {
+    setDislikes(dislikes + 1);
+  }
+
+  function handleHide() {
+    setComments(null);
+  }
+
+  const commentList = comments ? <CommentList comments={comments} /> : <CommentList />;
+
+
   return (
-    <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameBorder="0"
-        allowFullScreen
-        title="Thinking in React"
-      />
+    <div>
+      <Details url={video.embedUrl} title={video.title} views={video.views} date={video.createdAt} upvotes={likes} downvotes={dislikes} handleLike={handleLike} handleDislike={handleDislike} handleHide={handleHide}/>
+      {commentList}
     </div>
   );
 }
