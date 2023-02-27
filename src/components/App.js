@@ -4,11 +4,12 @@ import CommentList from "./CommentList.js";
 import { useState } from "react";
 
 function App() {
-  console.log("Here's your data:", video);
+  //console.log("Here's your data:", video);
 
   const [likes, setLikes] = useState(video.upvotes);
   const [dislikes, setDislikes] = useState(video.downvotes);
-  const [comments, setComments] = useState(video.comments); 
+  const [isHidden, setIsHidden] = useState(false);
+  const commentList = <CommentList comments={video.comments} />;
 
 
   function handleLike() {
@@ -20,16 +21,17 @@ function App() {
   }
 
   function handleHide() {
-    setComments(null);
+    setIsHidden(!isHidden);
+    console.log(isHidden)
   }
 
-  const commentList = comments ? <CommentList comments={comments} /> : <CommentList />;
+
 
 
   return (
     <div>
       <Details url={video.embedUrl} title={video.title} views={video.views} date={video.createdAt} upvotes={likes} downvotes={dislikes} handleLike={handleLike} handleDislike={handleDislike} handleHide={handleHide}/>
-      {commentList}
+      {isHidden === false ? commentList : <div></div>}
     </div>
   );
 }

@@ -5,8 +5,8 @@ function Details({url, title, views, date, upvotes, downvotes, handleLike, handl
 
     return (<div>
         <iframe
-        width="919"
-        height="525"
+        width="600"
+        height="400"
         src={url}
         allowFullScreen
         title={title}/>
